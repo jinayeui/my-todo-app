@@ -1,15 +1,30 @@
-import styles from './../App.module.css';
+import styled from 'styled-components';
 
 const filters = ['All', 'Active', 'Completed'];
 
+const FilterBox = styled.ul`
+	display: flex;
+	align-items: center;
+`;
+
+const FilterTab = styled.li`
+	margin-left: 2rem;
+`;
+
+const Button = styled.button`
+	font-size: 1.125rem;
+	font-weight: ${({ $active }) => $active ? 700 : 500};
+	${({ $active }) => $active && 'color: var(--color-point);'}
+`;
+
 export default function Filter({ filter, setFilter }) {
 	return (
-		<ul className={styles.filterTab}>
+		<FilterBox>
 			{filters.map((f, i) => (
-				<li key={i} className={filter === f ? styles.active : ''}>
-					<button title={`투두 ${f} 항목 보기`} onClick={() => setFilter(f)}>{f}</button>
-				</li>
+				<FilterTab key={i}>
+					<Button $active={filter === f} aria-label={`${f} 항목 보기`} onClick={() => setFilter(f)}>{f}</Button>
+				</FilterTab>
 			))}
-		</ul>
+		</FilterBox>
 	)
 }

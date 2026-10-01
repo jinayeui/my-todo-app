@@ -1,4 +1,4 @@
-import styles from "./App.module.css";
+import styled, { css, ThemeProvider } from 'styled-components';
 import Header from './components/Header';
 import List from './components/List';
 import Editor from './components/Editor';
@@ -9,24 +9,39 @@ const todoData = [
 		id: 1,
 		isDone: false,
 		content: '밥먹기',
-		//date: new Date().getTime(),
 		label: 'todo-1'
 	},
 	{
 		id: 2,
 		isDone: false,
 		content: '잠자기',
-		//date: new Date().getTime(),
 		label: 'todo-2'
 	},
 	{
 		id: 3,
 		isDone: false,
 		content: '영화보기',
-		//date: new Date().getTime(),
 		label: 'todo-3'
 	}
 ];
+
+const Wrapper = styled.div`
+	width: 100%;
+	overflow: hidden;
+	background-color: #fefefe;
+
+	${({ theme }) => theme.darkMode && css`
+		background-color: #2b2b2b;
+		color: #fff;
+	`}
+`;
+
+const Container = styled.div`
+	margin: 0 auto;
+	width: min(700px, 100%);
+	height: 100vh;
+	padding: 1rem 0;
+`;
 
 function App() {
 	const [darkMode, setDarkMode] = useState(false);
@@ -40,7 +55,6 @@ function App() {
 			id: idRef.current++,
 			isDone: false,
 			content: content,
-			//date: new Date().getTime(),
 			label: `todo-${labelRef.current++}`
 		};
 
@@ -77,13 +91,15 @@ function App() {
 	});
 
 	return (
-		<div className={`${styles.wrapper} ${darkMode ? styles.dark : styles.light}`}>
-			<div className={styles.container}>
-				<Header darkMode={darkMode} setDarkMode={setDarkMode} filter={filter} setFilter={setFilter} />
-				<List checkTodo={checkTodo} deleteTodo={deleteTodo} filteredTodos={filteredTodos} />
-				<Editor createTodo={createTodo} />
-			</div>
-		</div>
+		<ThemeProvider theme={{ darkMode }}>
+			<Wrapper>
+				<Container>
+					<Header darkMode={darkMode} setDarkMode={setDarkMode} filter={filter} setFilter={setFilter} />
+					<List checkTodo={checkTodo} deleteTodo={deleteTodo} filteredTodos={filteredTodos} />
+					<Editor createTodo={createTodo} />
+				</Container>
+			</Wrapper>
+		</ThemeProvider>
 	);
 }
 

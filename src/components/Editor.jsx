@@ -1,5 +1,41 @@
-import styles from './../App.module.css';
+import styled from 'styled-components';
 import { useState, useRef } from 'react';
+
+const EditBox = styled.div`
+	position: absolute;
+	bottom: 1rem;
+	left: 0;
+	width: 100%;
+	padding: 0.6rem 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+const Input = styled.input`
+	width: 90%;
+	height: 3rem;
+	margin-right: 0.5rem;
+	padding: 0 0.8rem;
+	font-size: 1rem;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+
+	&:focus,
+	&:active {
+		box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+	}
+`;
+
+const Button = styled.button`
+	width: 5rem;
+	height: 3rem;
+	background-color: var(--color-point);
+	border-radius: 5px;
+	color: #fff;
+	font-size: 1rem;
+	font-weight: 600;
+`;
 
 export default function Editor({ createTodo }) {
 	const [content, setContent] = useState('');
@@ -10,7 +46,7 @@ export default function Editor({ createTodo }) {
 	};
 
 	const submitTodo = () => {
-		if (content === '') {
+		if (content.trim() === '') {
 			contentRef.current.focus();
 			return;
 		}
@@ -19,29 +55,27 @@ export default function Editor({ createTodo }) {
 	};
 
 	const onKeyDown = (e) => {
-		if (e.keyCode === 13) {
+		if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
 			submitTodo();
 		}
 	};
 
 	return (
-		<div className={styles.todoEdit}>
-			<input 
+		<EditBox>
+			<Input 
 				ref={contentRef}
 				type="text" 
-				placeholder="Add Todo" 
-				className={styles.input_add}
+				placeholder="할 일을 적어주세요📝" 
 				value={content}
 				onChange={changeContent}
 				onKeyDown={onKeyDown}
 			/>
-			<button 
-				className={styles.btn_add}
+			<Button 
 				onClick={submitTodo}
-				title="투두 입력하기"
+				aria-label="투두 입력하기"
 			> 
-				Add
-			</button>
-		</div>
+				ADD
+			</Button>
+		</EditBox>
 	)
 }

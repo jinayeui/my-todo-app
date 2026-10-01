@@ -8,34 +8,53 @@
     position: relative;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     list-style: none;
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-    box-sizing: border-box;
-    color: #323232;
-    font-size: 1.1rem;
 }
 
-img, span {
+html {
+    font-size: 100%;
+}
+
+body {
+    font-size: 1rem;
+    word-break: keep-all;
+    color: #323232;
+    line-height: 1;
+}
+
+img {
     display: block;
 }
 
+span {
+    display: inline-block;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
 button {
-    outline: none;
     background-color: transparent;
     border: none;
+    outline: none;
+    color: inherit;
     cursor: pointer;
+}
+
+input {
+    border: none;
+    outline: none;
 }
 
 input[type='checkbox'],
 input[type='radio'] {
     accent-color: var(--color-point);
-}
-
-
-@media all and (max-width: 700px) {
-    :root {font-size: 15px;}
-}
-
-@media all and (max-width: 400px) {
-    :root {font-size: 14px;}
 }
