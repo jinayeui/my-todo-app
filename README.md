@@ -1,6 +1,6 @@
 # Todo List
 
-React로 제작한 투두리스트입니다.
+React 기반 투두리스트입니다.
 라이트·다크 모드를 지원합니다.
 
 ## Tech Stack
